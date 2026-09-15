@@ -135,7 +135,7 @@ fi
 
 echo "✅ 内核仓库准备完毕并完成版本号清理"
 
-if [ "$bbg" = "On" ] && [ "$KPM" = "Off" ]; then
+if [ "$bbg" = "On" ]; then
   set -e
   cd kernel_platform/common
   echo "🛡️ 正在配置 Baseband-Guard 基带防护..."
@@ -398,7 +398,7 @@ echo "⚡ 添加对 Mountify 的支持"
 echo "CONFIG_TMPFS_XATTR=y" >> "$DEFCONFIG_PATH"
 echo "CONFIG_TMPFS_POSIX_ACL=y" >> "$DEFCONFIG_PATH"
 
-if [ "$bbg" = "On" ] && [ "$KPM" = "Off" ]; then
+if [ "$bbg" = "On" ]; then
   echo "⚡ 配置 BBG 中..."
   cat <<EOT >> "$DEFCONFIG_PATH"
 CONFIG_BBG=y
