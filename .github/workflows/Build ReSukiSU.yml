@@ -148,6 +148,14 @@ on:
           - 'Off'
         default: 'On'
 
+      LXC:
+        description: "是否启用LXC容器支持(打开PID/USER/IPC命名空间与cgroup等容器必需项)"
+        required: true
+        type: choice
+        options:
+          - 'On'
+          - 'Off'
+        default: 'Off'
       BAZEL:
         description: "是否使用 Bazel 构建"
         required: true
@@ -562,6 +570,32 @@ jobs:
           echo "⚡ 添加对 Mountify 的支持"
           echo "CONFIG_TMPFS_XATTR=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_TMPFS_POSIX_ACL=y" >> ./common/arch/arm64/configs/gki_defconfig
+
+          if [ "${{ github.event.inputs.LXC }}" == "On" ]; then
+            echo "📦 启用 LXC 容器支持..."
+            echo "CONFIG_PID_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_USER_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_POSIX_MQUEUE=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_IPC_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_CGROUP_PIDS=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_CGROUP_DEVICE=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_CFS_BANDWIDTH=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_FHANDLE=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_PERSISTENT_KEYRINGS=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_ENCRYPTED_KEYS=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_OVERLAY_FS_INDEX=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_MACVLAN=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_IPVLAN=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NF_TABLES=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NF_TABLES_INET=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NF_TABLES_IPV4=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NF_TABLES_IPV6=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NF_NAT=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NFT_NAT=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NFT_MASQ=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NFT_COMPAT=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "CONFIG_NFT_CT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          fi
 
           if [ "${{ github.event.inputs.bbg }}" == "On" ]; then
             echo "⚡ 配置 BBG 中..."

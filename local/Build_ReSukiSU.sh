@@ -31,6 +31,7 @@ bbg=$(ask "是否启用 Baseband-Guard 基带防护? (On/Off)" "On")
 proxy=$(ask "是否添加代理性能优化? (如为联发科 CPU 必须选择 Off) (On/Off)" "On")
 UNICODE_BYPASS=$(ask "是否添加Unicode零宽绕过修复补丁(高内核版本不推荐开启, 建议使用 https://t.me/real5ec1cff/271 无痛修复) (On/Off)" "On")
 CVE_2026_43499=$(ask "是否应用 CVE-2026-43499 rtmutex 修复补丁? (On/Off)" "On")
+LXC=$(ask "是否启用 LXC 容器支持? (打开 PID/USER/IPC 命名空间与 cgroup 等容器必需项) (On/Off)" "Off")
 
 clear
 echo ""
@@ -48,6 +49,7 @@ echo "是否启用 Baseband-Guard  : $bbg"
 echo "是否启用代理优化          : $proxy"
 echo "是否启用 Unicode 绕过修复 : $UNICODE_BYPASS"
 echo "是否应用 CVE-2026-43499 : $CVE_2026_43499"
+echo "是否启用 LXC 容器支持     : $LXC"
 echo "================================================="
 read -p "按回车键开始构建流程..."
 clear
@@ -397,6 +399,34 @@ fi
 echo "⚡ 添加对 Mountify 的支持"
 echo "CONFIG_TMPFS_XATTR=y" >> "$DEFCONFIG_PATH"
 echo "CONFIG_TMPFS_POSIX_ACL=y" >> "$DEFCONFIG_PATH"
+
+if [ "$LXC" = "On" ]; then
+  echo "📦 启用 LXC 容器支持..."
+  cat <<EOT >> "$DEFCONFIG_PATH"
+CONFIG_PID_NS=y
+CONFIG_USER_NS=y
+CONFIG_POSIX_MQUEUE=y
+CONFIG_IPC_NS=y
+CONFIG_CGROUP_PIDS=y
+CONFIG_CGROUP_DEVICE=y
+CONFIG_CFS_BANDWIDTH=y
+CONFIG_FHANDLE=y
+CONFIG_PERSISTENT_KEYRINGS=y
+CONFIG_ENCRYPTED_KEYS=y
+CONFIG_OVERLAY_FS_INDEX=y
+CONFIG_MACVLAN=y
+CONFIG_IPVLAN=y
+CONFIG_NF_TABLES=y
+CONFIG_NF_TABLES_INET=y
+CONFIG_NF_TABLES_IPV4=y
+CONFIG_NF_TABLES_IPV6=y
+CONFIG_NF_NAT=y
+CONFIG_NFT_NAT=y
+CONFIG_NFT_MASQ=y
+CONFIG_NFT_COMPAT=y
+CONFIG_NFT_CT=y
+EOT
+fi
 
 if [ "$bbg" = "On" ]; then
   echo "⚡ 配置 BBG 中..."
