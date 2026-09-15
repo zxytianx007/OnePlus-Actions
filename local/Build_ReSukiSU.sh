@@ -159,6 +159,7 @@ cd ../..
 echo "🔧 正在克隆所需补丁..."
 if [ "$SUSFS" = "On" ]; then
   git clone https://gitlab.com/simonpunk/susfs4ksu.git -b gki-${ANDROID_VERSION}-${KERNEL_VERSION}
+  git -C susfs4ksu checkout ec785f47d49f7b3871ca9356f450411020af7017   # 钉到 9/1 已知良好版
 fi
 git clone https://github.com/Xiaomichael/kernel_patches.git
 git clone https://github.com/ShirkNeko/SukiSU_patch.git
