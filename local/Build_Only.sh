@@ -29,7 +29,7 @@ bbr=$(ask "是否启用 BBR 拥塞控制算法? (On/Off)" "Off")
 bbg=$(ask "是否启用 Baseband-Guard 基带防护? (On/Off)" "On")
 proxy=$(ask "是否添加代理性能优化? (如为联发科 CPU 必须选择 Off) (On/Off)" "On")
 UNICODE_BYPASS=$(ask "是否添加Unicode零宽绕过修复补丁(高内核版本不推荐开启, 建议使用 https://t.me/real5ec1cff/271 无痛修复) (On/Off)" "On")
-CVE_2026_43499=$(ask "是否应用 CVE-2026-43499 rtmutex 修复补丁? (On/Off)" "Off")
+CVE_2026_43499=$(ask "是否应用 CVE-2026-43499 rtmutex 修复补丁? (On/Off)" "On")
 
 clear
 echo ""

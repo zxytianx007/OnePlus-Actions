@@ -24,14 +24,14 @@ CPU=$(ask "请输入 CPU 分支 (例如: sm8750, sm8650, sm8550, sm8475)" "sm847
 FEIL=$(ask "请输入手机型号 (例如: oneplus_ace_pro_v, oneplus_ace2_v, oneplus_11r_v)" "oneplus_ace_pro_v")
 ANDROID_VERSION=$(ask "请输入内核安卓 KMI 版本 (android15, android14, android13, android12)" "android12")
 KERNEL_VERSION=$(ask "请输入内核版本 (6.6, 6.1, 5.15, 5.10)" "5.10")
-SUSFS=$(ask "是否启用 SUSFS? (On/Off)" "Off")
+SUSFS=$(ask "是否启用 SUSFS? (On/Off)" "On")
 KPM=$(ask "是否启用 KPM (Kernel Patch Manager)? (On/Off)" "Off")
 lz4kd=$(ask "是否启用 lz4kd? (6.1 关闭时使用 lz4 + zstd; 6.6 关闭时使用 lz4) (On/Off)" "On")
 bbr=$(ask "是否启用 BBR 拥塞控制算法? (On/Off)" "Off")
 bbg=$(ask "是否启用 Baseband-Guard 基带防护? (On/Off)" "On")
 proxy=$(ask "是否添加代理性能优化? (如为联发科 CPU 必须选择 Off) (On/Off)" "On")
 UNICODE_BYPASS=$(ask "是否添加Unicode零宽绕过修复补丁(高内核版本不推荐开启, 建议使用 https://t.me/real5ec1cff/271 无痛修复) (On/Off)" "On")
-CVE_2026_43499=$(ask "是否应用 CVE-2026-43499 rtmutex 修复补丁? (On/Off)" "Off")
+CVE_2026_43499=$(ask "是否应用 CVE-2026-43499 rtmutex 修复补丁? (On/Off)" "On")
 
 clear
 echo ""
