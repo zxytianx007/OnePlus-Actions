@@ -21,7 +21,7 @@ on:
           - 'sm7635'
           - 'sm7550'
           - 'sm6375'
-        default: 'sm8650'
+        default: 'sm8475'
         
       FEIL:
         description: "手机型号"
@@ -61,7 +61,7 @@ on:
           - 'oneplus_nord_4_b'
           - 'oneplus_nord_ce4_lite_5g'
           - 'oneplus_nord_ce4_b'
-        default: 'oneplus_12_b'
+        default: 'oneplus_ace_pro_v'
         
       ANDROID_VERSION:
         description: "内核安卓KMI版本"
@@ -72,7 +72,7 @@ on:
           - 'android14'
           - 'android13'
           - 'android12'
-        default: 'android14'
+        default: 'android12'
         
       KERNEL_VERSION:
         description: "内核版本"
@@ -83,7 +83,7 @@ on:
           - '6.1'
           - '5.15'
           - '5.10'
-        default: '6.1'
+        default: '5.10'
 
       SUSFS:
         description: "是否启用SUSFS"
@@ -92,7 +92,7 @@ on:
         options:
           - 'On'
           - 'Off'
-        default: 'Off'
+        default: 'On'
 
       KPM:
         description: "是否启用KPM"
@@ -110,7 +110,7 @@ on:
         options:
           - 'On'
           - 'Off'
-        default: 'Off'
+        default: 'On'
 
       bbg:
         description: "是否启用BBG基带保护"
@@ -146,7 +146,7 @@ on:
         options:
           - 'On'
           - 'Off'
-        default: 'Off'
+        default: 'On'
 
       CVE_2026_43499:
         description: "是否应用 CVE-2026-43499 rtmutex 修复补丁"
@@ -155,7 +155,7 @@ on:
         options:
           - 'On'
           - 'Off'
-        default: 'Off'
+        default: 'On'
          
 jobs:
   build:
