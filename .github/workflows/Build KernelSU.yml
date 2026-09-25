@@ -216,24 +216,28 @@ jobs:
       - name: "⚙️ Initialize ccache | 初始化ccache"
         run: |
           echo "🔧 正在初始化ccache..."
-          INIT_FLAG="${{ env.CCACHE_DIR }}/.ccache_initialized"
-          
+          # 自愈：runner 镜像更新后 apt 缓存可能失效导致 ccache 缺失
+          if ! command -v ccache >/dev/null 2>&1; then
+            echo "⚠️ 未找到 ccache，尝试安装..."
+            sudo apt-get update -qq || true
+            sudo apt-get install -y ccache || true
+          fi
           if command -v ccache >/dev/null 2>&1; then
+            INIT_FLAG="${{ env.CCACHE_DIR }}/.ccache_initialized"
             if [ ! -f "$INIT_FLAG" ]; then
               mkdir -p "${{ env.CCACHE_DIR }}"
               ccache -M ${{ env.CCACHE_MAXSIZE }}
               touch "$INIT_FLAG"
-              echo "🆕 ccache初始化完成"
+              echo "✅ ccache初始化完成"
             else
               echo "ℹ️ ccache已存在，跳过初始化"
             fi
+            # 显示缓存统计
+            ccache -s
           else
-            echo "⚠️ 未找到ccache命令，跳过初始化"
+            echo "⚠️ ccache 不可用，已跳过初始化（不再直接失败）"
           fi
-          # 显示缓存统计
-          ccache -s
           echo "✅ ccache初始化流程完成"
-
       - name: "📥 Install Repo Tool | 安装Repo工具"
         run: |
           echo "⬇️ 正在下载repo工具..."
